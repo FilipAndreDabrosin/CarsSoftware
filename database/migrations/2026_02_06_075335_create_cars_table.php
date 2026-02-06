@@ -12,7 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cars', function (Blueprint $table) {
-            $table->id();
+            $table->char('registration_number', 7)->primary();
+            $table->string('make');
+            $table->string('model');
+            $table->integer('year');
+            $table->integer('kilometers');
+            $table->string('color');
+            $table->string('fuel_type');
+            $table->string('gearbox');
+            $table->integer('price');
+            $table->string('status')->default('Reservert');
+            $table->text('description')->nullable();
+            $table->date('arrived_date');
             $table->timestamps();
         });
     }

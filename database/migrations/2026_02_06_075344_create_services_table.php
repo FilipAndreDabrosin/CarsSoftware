@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->char('registration_number', 7);
+            $table->string('type');
+            $table->string('priority')->default('Medium');
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->integer('estimated_cost');
+            $table->integer('real_cost')->nullable();
+            $table->date('scheduled_date');
+            $table->date('completed_date')->nullable();
+            $table->string('mechanic')->nullable();
             $table->timestamps();
         });
     }
