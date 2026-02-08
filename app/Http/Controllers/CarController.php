@@ -11,24 +11,23 @@ class CarController extends Controller
 {
     public function index(Request $request)
     {
-        $selectedStatus = trim((string) $request->query('status', ''));
-        $carsQuery = Car::query();
 
-        if ($selectedStatus !== '') {
+        // Brukes for å filtrere etter hvilken status bilen har. Brukt i carpark/index
+        $selectedStatus = trim((string) $request->query('status', ''));
+
+        $cars = Car::when($selectedStatus !== '', function ($query) use ($selectedStatus) {
             $statusMap = [
                 'Til salgs' => 'Til salgs',
                 'Reservert' => 'Reservert',
                 'Solgt' => 'Solgt',
             ];
-
-            $matchingStatuses = $statusMap[$selectedStatus] ?? [$selectedStatus];
-            if (!is_array($matchingStatuses)) {
+            $matchingStatuses = $statusMap[$selectedStatus] ?? $selectedStatus;
+            if (! is_array($matchingStatuses)) {
                 $matchingStatuses = [$matchingStatuses];
             }
-            $carsQuery->where('status', $matchingStatuses);
-        }
 
-        $cars = $carsQuery->get();
+            return $query->whereIn('status', $matchingStatuses);
+        })->get();
 
         return view('carpark.index', compact('cars'));
     }
@@ -80,7 +79,7 @@ class CarController extends Controller
         return view('carpark.edit', compact('car'));
     }
 
-    public function update(Request $request, string $registration_number) 
+    public function update(Request $request, string $registration_number)
     {
         $request->merge([
             'arrived_date' => $this->normalizeArrivedDate($request->input('arrived_date')),

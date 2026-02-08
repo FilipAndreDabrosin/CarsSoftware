@@ -60,12 +60,17 @@
                         <span>Legg til bil</span>
                     </a>
                 </div>
+
+                {{-- FILTER SEKSJON --}}
                 <form method="GET" action="{{ route('carpark') }}" class="mt-6 grid gap-3 md:grid-cols-12">
-                    <label for="car-search" class="relative md:col-span-10 my-2">
+
+                     {{-- Søkebar, er ikke implemented i backend enda --}}
+                    {{-- <label for="car-search" class="relative md:col-span-10 my-2">
                         <ion-icon name="search-outline" class="pointer-events-none absolute text-lg text-gray-400"></ion-icon>
                         <input id="car-search" type="text" placeholder="Søk etter merke, modell, reg.nr..."
                                class="h-11 w-full rounded-lg border border-gray-200 pl-10 pr-3 text-sm text-gray-700 placeholder:text-gray-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 ">
-                    </label>
+                    </label> --}}
+                    {{-- Dropdwon meny med valg der man kan filtrere etter solgte biler o.l. --}}
                     <label for="status-filter" class="relative md:col-span-2">
                         <select id="status-filter" name="status" onchange="this.form.submit()"
                                 class="h-11 w-full appearance-none rounded-lg border border-gray-200 px-3 pr-9 text-sm text-gray-700 focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -76,6 +81,7 @@
                         <ion-icon name="chevron-down-outline" class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-base text-gray-400"></ion-icon>
                     </label>
                 </form>
+                {{-- FILTER SEKSJON SLUTT --}}
             </div>
 
             {{-- HEADER SKESJON SLUTT --}}

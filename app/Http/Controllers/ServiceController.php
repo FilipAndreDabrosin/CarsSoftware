@@ -38,7 +38,9 @@ class ServiceController extends Controller
             'title' => 'required|max:255',
             'description' => 'max:255',
             'estimated_cost' => 'required|integer',
+            'real_cost' => 'required|integer',
             'scheduled_date' => 'required|date',
+            'completed_date' => 'required|date',
             'mechanic' => 'required|max:255',
         ]);
 
@@ -65,7 +67,12 @@ class ServiceController extends Controller
         ]);
 
         $validated = $request->validate([
-            'registration_number' => 'required|unique:services|max:255',
+            'registration_number' => [
+                'required',
+                'max:255',
+                Rule::unique('services', 'registration_number')
+                    ->ignore($registration_number, 'registration_number'),
+            ],
             'type' => 'required|max:255',
             'priority' => 'required|max:255',
             'title' => 'required|max:255',
