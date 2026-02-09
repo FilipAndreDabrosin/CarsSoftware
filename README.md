@@ -22,7 +22,10 @@ Jeg valgte å lage dette prosjeketet i Laravel ettersom det er et back-end ramme
 
 Når databasen er tilkoblet kjør
 
-´´´php artisan db:seed´´´ & ´´´php artisan db:seed --class=MechanicSeeder´´´
+```php artisan db:seed``` 
+& 
+```php artisan db:seed --class=MechanicSeeder```
+
 
 
 
