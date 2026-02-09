@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Mechanic;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -20,8 +21,9 @@ class ServiceController extends Controller
     public function create()
     {
         $cars = Car::orderBy('registration_number')->get(['registration_number', 'make', 'model']);
+        $mechanics = Mechanic::orderBy('id')->get(['name', 'title', 'email']);
 
-        return view('service.create', compact('cars'));
+        return view('service.create', compact('cars', 'mechanics'));
     }
 
     public function store(Request $request)
@@ -38,9 +40,7 @@ class ServiceController extends Controller
             'title' => 'required|max:255',
             'description' => 'max:255',
             'estimated_cost' => 'required|integer',
-            'real_cost' => 'required|integer',
             'scheduled_date' => 'required|date',
-            'completed_date' => 'required|date',
             'mechanic' => 'required|max:255',
         ]);
 
@@ -55,8 +55,9 @@ class ServiceController extends Controller
     {
         $service = Service::where('registration_number', $registration_number)->firstOrFail();
         $cars = Car::orderBy('registration_number')->get(['registration_number', 'make', 'model']);
+        $mechanics = Mechanic::orderBy('id')->get(['name', 'title', 'email']);
 
-        return view('service.edit', compact('service', 'cars'));
+        return view('service.edit', compact('service', 'cars', 'mechanics'));
     }
 
     public function update(Request $request, string $registration_number) 

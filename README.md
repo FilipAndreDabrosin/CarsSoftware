@@ -20,6 +20,10 @@ Jeg valgte å lage dette prosjeketet i Laravel ettersom det er et back-end ramme
 ## Oppsett
 .env filen må bli konfigurert med en MySQL database. Følg .env.example
 
+Når databasen er tilkoblet kjør
+
+´´´php artisan db:seed´´´ & ´´´php artisan db:seed --class=MechanicSeeder´´´
+
 
 
 

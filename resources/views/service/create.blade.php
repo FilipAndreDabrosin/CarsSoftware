@@ -43,17 +43,17 @@
                     <div class="grid gap-5 md:grid-cols-2">
                         <div>
                             <label for="registration_number"
-                                class="mb-1.5 block text-sm font-semibold text-gray-700">Registreringsnummer</label>
+                                class="mb-1.5 block text-sm font-semibold text-gray-700">Registrering Nummer</label>
                             <select id="registration_number" name="registration_number" required
                                 class="h-11 w-full rounded-lg border-gray-300 text-sm shadow-sm focus:border-blue-300 focus:ring-indigo-500">
-                                <option value="" disabled @selected(old('registration_number') === null)>Velg bil</option>
+                                <option value="" disabled @selected(old('registration_number') === null)>Velg registrerings nummer</option>
                                 @forelse ($cars as $car)
                                     <option value="{{ $car->registration_number }}"
                                         @selected(old('registration_number') === $car->registration_number)>
                                         {{ $car->registration_number }} - {{ $car->make }} {{ $car->model }}
                                     </option>
                                 @empty
-                                    <option value="" disabled>Ingen biler tilgjengelig</option>
+                                    <option value="" disabled>Ingen registrerings nummer funnet</option>
                                 @endforelse
                             </select>
                         </div>
@@ -100,11 +100,21 @@
                                 class="h-11 w-full rounded-lg border-gray-300 text-sm shadow-sm focus:border-blue-300 focus:ring-indigo-500">
                             <p class="mt-1 text-xs text-gray-500">Format: dd.mm.åååå</p>
                         </div>
-
-                        <div class="md:col-span-2">
-                            <label for="mechanic" class="mb-1.5 block text-sm font-semibold text-gray-700">Ansvarlig mekaniker</label>
-                            <input type="text" id="mechanic" name="mechanic" value="{{ old('mechanic') }}" required
+                        <div>
+                            <label for="mechanic"
+                                class="mb-1.5 block text-sm font-semibold text-gray-700">Ansvarlig mekaniker</label>
+                            <select id="mechanic" name="mechanic" required
                                 class="h-11 w-full rounded-lg border-gray-300 text-sm shadow-sm focus:border-blue-300 focus:ring-indigo-500">
+                                <option value="" disabled @selected(old('mechanic') === null)>Velg mekaniker</option>
+                                @forelse ($mechanics as $mechanic)
+                                    <option value="{{ $mechanic->name }}"
+                                        @selected(old('mechanic') === $mechanic->name)>
+                                        {{ $mechanic->name }} - {{ $mechanic->title }}
+                                    </option>
+                                @empty
+                                    <option value="" disabled>Ingen mekanikere funnet</option>
+                                @endforelse
+                            </select>
                         </div>
 
                         <div class="md:col-span-2">

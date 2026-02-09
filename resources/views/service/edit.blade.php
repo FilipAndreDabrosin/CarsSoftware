@@ -121,10 +121,26 @@
                             <p class="mt-1 text-xs text-gray-500">Format: dd.mm.åååå</p>
                         </div>
 
-                        <div class="md:col-span-2">
+                        {{-- <div class="md:col-span-2">
                             <label for="mechanic" class="mb-1.5 block text-sm font-semibold text-gray-700">Ansvarlig mekaniker</label>
                             <input type="text" id="mechanic" name="mechanic" value="{{ old('mechanic', $service->mechanic) }}" required
                                 class="h-11 w-full rounded-lg border-gray-300 text-sm shadow-sm focus:border-blue-300 focus:ring-indigo-500">
+                        </div> --}}
+                         <div>
+                            <label for="mechanic"
+                                class="mb-1.5 block text-sm font-semibold text-gray-700">Ansvarlig mekaniker</label>
+                            <select id="mechanic" name="mechanic" required
+                                class="h-11 w-full rounded-lg border-gray-300 text-sm shadow-sm focus:border-blue-300 focus:ring-indigo-500">
+                                <option value="" disabled @selected(old('mechanic') === null)>Velg mekaniker</option>
+                                @forelse ($mechanics as $mechanic)
+                                    <option value="{{ $mechanic->name }}"
+                                        @selected(old('mechanic') === $mechanic->name)>
+                                        {{ $mechanic->name }} - {{ $mechanic->title }}
+                                    </option>
+                                @empty
+                                    <option value="" disabled>Ingen mekanikere funnet</option>
+                                @endforelse
+                            </select>
                         </div>
 
                         <div class="md:col-span-2">
